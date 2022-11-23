@@ -1,0 +1,25 @@
+# action.yml
+name: 'Ansbile Action'
+description: 'Run an ansible command.'
+inputs:
+  ansible_requirements:
+    description: 'requirements file'
+    required: true
+    default: 'requirements.yml'
+  ansible_inventory:
+    description: 'inventory file'
+    required: true
+    default: 'inventory'
+outputs:
+  ansible_version: 
+    description: 'The version of ansible used.'
+  ansible_requirements: 
+    description: 'The requirements file used.'
+  ansible_inventory: 
+    description: 'The inventory file used.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.ansible_requirements }}
+    - ${{ inputs.ansible_inventory }}
