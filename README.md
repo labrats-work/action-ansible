@@ -3,10 +3,17 @@
 This action:
 
 - [x] Prints the ansible verion
-- [ ] Installs requirements according to {{requirements}} file.
-- [ ] Applies inventory according to {{inventory}} file
+- [x] Installs requirements according to {{requirements}} file.
+- [x] Applies inventory according to {{inventory}} file
 
 ---
+
+## TODO
+
+- [ ] Ability to specify an sshkey file
+- [ ] Tests for each scenario
+- [ ] Refactor and polish
+- [ ] Cleanup the docs
 
 ## Inputs
 

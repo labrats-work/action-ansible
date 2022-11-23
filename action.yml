@@ -1,6 +1,7 @@
 # action.yml
 name: 'Ansbile Action'
-description: 'Run an ansible command.'
+author: 'Thomas Pisula'
+description: 'Execute Ansible as Github Action.'
 inputs:
   nsbl_requirements:
     description: 'requirements file'
@@ -17,7 +18,10 @@ inputs:
   nsbl_workingdirectory:
     description: 'working directory'
     required: true
-    default: '.'
+    default: '.'    
+  nsbl_sshkey:
+    description: 'sshkey to use for host connections'
+    required: false
 outputs:
   nsbl_version: 
     description: 'The version of ansible used.'
@@ -35,3 +39,4 @@ runs:
     - ${{ inputs.nsbl_inventory }}
     - ${{ inputs.nsbl_playbook }}
     - ${{ inputs.nsbl_workingdirectory }}
+    - ${{ inputs.nsbl_sshkey }}

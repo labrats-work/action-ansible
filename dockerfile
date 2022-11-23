@@ -1,6 +1,8 @@
 # Container image that runs your code
 FROM docker.io/alpine:3
 
+LABEL org.opencontainers.image.authors="tompisula@labrats.work"
+
 RUN apk -U upgrade
 # Generic pre-req
 RUN apk add curl git openssh

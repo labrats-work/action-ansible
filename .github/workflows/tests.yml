@@ -17,11 +17,15 @@ jobs:
     name: Ansbile action tests.    
     strategy:
       matrix: 
-        test: [ basic, requirements ]
+        test: [ basic, requirements, ssh ]
         include:
           - nsbl_requirements: 'requirements.yml'
           - nsbl_inventory: 'inventory'
           - nsbl_playbook: 'site.yml'
+          - nsbl_keyfile: ''
+          - test: ssh
+            nsbl_keyfile: "abcd"
+
     steps:
       - name: ${{ matrix.test }}
         uses: labrats-work/action-ansible@main
@@ -30,3 +34,4 @@ jobs:
           nsbl_requirements: ${{ matrix.nsbl_requirements }}
           nsbl_inventory: ${{ matrix.nsbl_inventory }}
           nsbl_playbook: ${{ matrix.nsbl_playbook }}
+          nsbl_keyfile: ${{ matrix.nsbl_keyfile }}
