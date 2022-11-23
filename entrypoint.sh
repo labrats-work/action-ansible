@@ -18,6 +18,6 @@ echo "nsbl_playbook=$nsbl_playbook" >> $GITHUB_OUTPUT
 
 cd $nsbl_workingdirectory
 
-ansible-galaxy install -r $ansible_requirements
+ansible-galaxy install -r $nsbl_requirements
 
-ansible-playbook -i $ansible_inventory $ansible_playbook
+ansible-playbook -i $nsbl_inventory $nsbl_playbook
