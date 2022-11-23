@@ -10,9 +10,6 @@ jobs:
         uses: labrats-work/action-ansible@main
         with:
           nsbl_workingdirectory: "/tests/default"
-          nsbl_requirements: 'requirements.yml'
-          nsbl_inventory: 'inventory'
-          nsbl_playbook: 'site.yml'
 
       - name: Basic test
         id: test_basic
