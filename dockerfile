@@ -10,6 +10,7 @@ RUN apk add python3
 RUN apk add ansible
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
+COPY tests /tests
 COPY entrypoint.sh /entrypoint.sh
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
