@@ -23,7 +23,7 @@ jobs:
           - nsbl_inventory: 'inventory'
           - nsbl_playbook: 'site.yml'
           - nsbl_sshkey: ''
-          - test: ssh
+          - test: ssh-agent
             nsbl_sshkey: "abcd"
 
     steps:

@@ -20,6 +20,7 @@ echo "nsbl_playbook=$nsbl_playbook" >> $GITHUB_OUTPUT
 cd $nsbl_workingdirectory
 
 if [ -z "$nsbl_sshkey" ]
+then
     eval `ssh-agent`
     echo "$nsbl_sshkey" | ssh-add - > /dev/null
 fi
