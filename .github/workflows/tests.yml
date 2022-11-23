@@ -22,11 +22,13 @@ jobs:
           - nsbl_requirements: 'requirements.yml'
           - nsbl_inventory: 'inventory'
           - nsbl_playbook: 'site.yml'
-          - nsbl_sshkey: ''
-          - test: ssh-agent
-            nsbl_sshkey: "abcd"
+          - nsbl_sshkeyFile: 'id_rsa'
 
     steps:
+      - name: ${{ matrix.test }}_loadKeyFile
+        run: |
+          cd "/tests/${{ matrix.test }}"
+          [ -f ${{ matrix.nsbl_sshkeyFile}} ] && echo "SSH_KEY=$(cat ${{ matrix.nsbl_sshkeyFile}})" >> $GITHUB_ENV
       - name: ${{ matrix.test }}
         uses: labrats-work/action-ansible@main
         with:
@@ -34,4 +36,4 @@ jobs:
           nsbl_requirements: ${{ matrix.nsbl_requirements }}
           nsbl_inventory: ${{ matrix.nsbl_inventory }}
           nsbl_playbook: ${{ matrix.nsbl_playbook }}
-          nsbl_sshkey: ${{ matrix.nsbl_sshkey }}
+          nsbl_sshkey: ${{ env.SSH_KEY }}
