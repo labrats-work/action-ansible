@@ -21,8 +21,10 @@ cd $nsbl_workingdirectory
 
 if [ -z "$nsbl_sshkey" ]
 then
+    echo "Adding ssh-key to agent"
     eval `ssh-agent`
     echo "$nsbl_sshkey" | ssh-add - > /dev/null
+    ssh-add -l
 fi
 
 ansible-galaxy install -r $nsbl_requirements
