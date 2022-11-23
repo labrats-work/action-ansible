@@ -1,0 +1,15 @@
+on: [push]
+
+jobs:
+  ansible_job:
+    runs-on: ubuntu-latest
+    name: A job to test ansbile action.
+    steps:
+      - name: Ansbile action step
+        id: ansible
+        uses: labrats-work/ansible-action@v1
+        with:
+          ansible_inventory: 'inventoryFile'
+          ansible_requirements: 'requirementsFile'
+      - name: Get the output
+        run: echo "version ${{ steps.hello.outputs.ansible_version }}"
