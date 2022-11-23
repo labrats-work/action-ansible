@@ -2,24 +2,36 @@
 name: 'Ansbile Action'
 description: 'Run an ansible command.'
 inputs:
-  ansible_requirements:
+  nsbl_requirements:
     description: 'requirements file'
     required: true
     default: 'requirements.yml'
-  ansible_inventory:
+  nsbl_inventory:
     description: 'inventory file'
     required: true
     default: 'inventory'
+  nsbl_playbook:
+    description: 'playbook file'
+    required: true
+    default: 'site.yml'
+  nsbl_workingdirectory:
+    description: 'working directory'
+    required: true
+    default: '.'
 outputs:
-  ansible_version: 
+  nsbl_version: 
     description: 'The version of ansible used.'
-  ansible_requirements: 
+  nsbl_requirements: 
     description: 'The requirements file used.'
-  ansible_inventory: 
+  nsbl_inventory: 
     description: 'The inventory file used.'
+  nsbl_playbook: 
+    description: 'The playbook file used.'
 runs:
   using: 'docker'
   image: 'dockerfile'
   args:
-    - ${{ inputs.ansible_requirements }}
-    - ${{ inputs.ansible_inventory }}
+    - ${{ inputs.nsbl_requirements }}
+    - ${{ inputs.nsbl_inventory }}
+    - ${{ inputs.nsbl_playbook }}
+    - ${{ inputs.nsbl_workingdirectory }}
