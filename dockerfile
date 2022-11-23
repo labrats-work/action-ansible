@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM docker.io/alpine:edge
+FROM docker.io/alpine:3
 
 RUN apk -U upgrade
 # Generic pre-req
