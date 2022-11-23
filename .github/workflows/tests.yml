@@ -1,21 +1,33 @@
 on: [push]
 
 jobs:
-  ansible_job:
+
+  tests_default:
     runs-on: ubuntu-latest
-    name: Ansbile action tests.
+    name: Ansbile action tests.  
     steps:
-      - name: Default test
+      - name: default
         id: test_default
         uses: labrats-work/action-ansible@main
         with:
           nsbl_workingdirectory: "/tests/default"
 
-      - name: Basic test
-        id: test_basic
+  tests_matrix:
+    runs-on: ubuntu-latest
+    name: Ansbile action tests.    
+    strategy:
+      matrix: 
+        test: [ basic, ssh ]
+        include:
+          - nsbl_requirements: 'requirements.yml'
+          - nsbl_inventory: 'inventory'
+          - nsbl_playbook: 'site.yml'
+    steps:
+      - name: ${{ matrix.test }}
+        id: test_${{ matrix.test }}
         uses: labrats-work/action-ansible@main
         with:
-          nsbl_workingdirectory: "/tests/basic"
-          nsbl_requirements: 'requirements.yml'
-          nsbl_inventory: 'inventory'
-          nsbl_playbook: 'site.yml'
+          nsbl_workingdirectory: "/tests/${{ matrix.test }}"
+          nsbl_requirements: ${{ matrix.nsbl_requirements }}
+          nsbl_inventory: ${{ matrix.nsbl_inventory }}
+          nsbl_playbook: ${{ matrix.nsbl_playbook }}
