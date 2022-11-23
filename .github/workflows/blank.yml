@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Ansbile action step
         id: ansible
-        uses: labrats-work/ansible-action@v1
+        uses: labrats-work/action-ansible@v1
         with:
           ansible_inventory: 'inventoryFile'
           ansible_requirements: 'requirementsFile'
