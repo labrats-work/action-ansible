@@ -1,7 +1,9 @@
 #!/bin/sh -l
 
 # Print version
-ansible_version=$(ansible --version | head -n 1)
+ansible --version
+
+ansible_version="test"
 
 echo "ansible_version=$ansible_version" >> $GITHUB_OUTPUT
 # Print requirements file
