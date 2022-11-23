@@ -17,14 +17,14 @@ jobs:
     name: Ansbile action tests.    
     strategy:
       matrix: 
-        test: [ basic, requirements, ssh ]
+        test: [ basic, requirements, ssh-agent ]
         include:
           - nsbl_requirements: 'requirements.yml'
           - nsbl_inventory: 'inventory'
           - nsbl_playbook: 'site.yml'
-          - nsbl_keyfile: ''
+          - nsbl_sshkey: ''
           - test: ssh
-            nsbl_keyfile: "abcd"
+            nsbl_sshkey: "abcd"
 
     steps:
       - name: ${{ matrix.test }}
@@ -34,4 +34,4 @@ jobs:
           nsbl_requirements: ${{ matrix.nsbl_requirements }}
           nsbl_inventory: ${{ matrix.nsbl_inventory }}
           nsbl_playbook: ${{ matrix.nsbl_playbook }}
-          nsbl_keyfile: ${{ matrix.nsbl_keyfile }}
+          nsbl_sshkey: ${{ matrix.nsbl_sshkey }}

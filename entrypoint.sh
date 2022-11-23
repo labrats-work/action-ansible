@@ -6,7 +6,7 @@ nsbl_requirements=$1
 nsbl_inventory=$2
 nsbl_playbook=$3
 nsbl_workingdirectory=$4
-nsbl_keyfile=$5
+nsbl_sshkey=$5
 
 # output nsbl_version
 echo "nsbl_version=$nsbl_version" >> $GITHUB_OUTPUT
@@ -19,9 +19,9 @@ echo "nsbl_playbook=$nsbl_playbook" >> $GITHUB_OUTPUT
 
 cd $nsbl_workingdirectory
 
-if [ -z "$nsbl_keyfile" ]
+if [ -z "$nsbl_sshkey" ]
     eval `ssh-agent`
-    ssh-add - <<< $nsbl_keyfile
+    echo "$nsbl_sshkey" | ssh-add - > /dev/null
 fi
 
 ansible-galaxy install -r $nsbl_requirements
