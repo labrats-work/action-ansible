@@ -26,6 +26,7 @@ jobs:
 
     steps:
       - name: ${{ matrix.test }}_loadKeyFile
+        uses: actions/checkout@v2
         run: |
           cd ./tests/${{ matrix.test }}"
           [ -f ${{ matrix.nsbl_sshkeyFile}} ] && echo "SSH_KEY=$(cat ${{ matrix.nsbl_sshkeyFile}})" >> $GITHUB_ENV
