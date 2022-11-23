@@ -29,7 +29,7 @@ jobs:
       - name: ${{ matrix.test }}_loadKeyFile
         run: |
           cd ./tests/${{ matrix.test }}"
-          [ -f ${{ matrix.nsbl_sshkeyFile}} ] && echo "SSH_KEY=$(cat ${{ matrix.nsbl_sshkeyFile}})" >> $GITHUB_ENV
+          [ -f ${{ matrix.nsbl_sshkeyFile}} ] && echo SSH_KEY=$(cat ${{ matrix.nsbl_sshkeyFile }}) >> $GITHUB_ENV
       - name: ${{ matrix.test }}
         uses: labrats-work/action-ansible@main
         with:
