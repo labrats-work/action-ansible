@@ -1,8 +1,5 @@
-# file: site.yml
-
-- name: gather facts
-  hosts: all
+---
+- hosts: target
   tasks:
-  - name: show
-    debug:
-      var: ansible_facts
+  - debug:
+      msg: hello world

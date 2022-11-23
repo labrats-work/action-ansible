@@ -1,1 +1,1 @@
-localhost
+target ansible_connection=local
