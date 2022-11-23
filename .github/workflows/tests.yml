@@ -17,7 +17,7 @@ jobs:
     name: Ansbile action tests.    
     strategy:
       matrix: 
-        test: [ basic, ansible_awesome ]
+        test: [ basic, requirements ]
         include:
           - nsbl_requirements: 'requirements.yml'
           - nsbl_inventory: 'inventory'
