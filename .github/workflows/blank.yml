@@ -11,5 +11,12 @@ jobs:
         with:
           ansible_inventory: 'inventoryFile'
           ansible_requirements: 'requirementsFile'
+
       - name: Get the output
-        run: echo "version ${{ steps.hello.outputs.ansible_version }}"
+        run: echo "version ${{ steps.ansible.outputs.ansible_version }}"
+
+      - name: Get the output
+        run: echo "version ${{ steps.ansible.outputs.ansible_inventory }}"
+
+      - name: Get the output
+        run: echo "version ${{ steps.ansible.outputs.ansible_requirements }}"
