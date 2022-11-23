@@ -19,7 +19,7 @@ outputs:
     description: 'The inventory file used.'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'dockerfile'
   args:
     - ${{ inputs.ansible_requirements }}
     - ${{ inputs.ansible_inventory }}
