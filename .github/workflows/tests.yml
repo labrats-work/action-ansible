@@ -1,0 +1,24 @@
+on: [push]
+
+jobs:
+  ansible_job:
+    runs-on: ubuntu-latest
+    name: Ansbile action tests.
+    steps:
+      - name: Default test
+        id: default
+        uses: labrats-work/action-ansible@main
+        with:
+          nsbl_workingdirectory: "/tests/default"
+          nsbl_requirements: 'requirements.yml'
+          nsbl_inventory: 'inventory'
+          nsbl_playbook: 'site.yml'
+
+      - name: Basic test
+        id: default
+        uses: labrats-work/action-ansible@main
+        with:
+          nsbl_workingdirectory: "/tests/basic"
+          nsbl_requirements: 'requirements.yml'
+          nsbl_inventory: 'inventory'
+          nsbl_playbook: 'site.yml'
