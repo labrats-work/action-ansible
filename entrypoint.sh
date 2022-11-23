@@ -1,5 +1,7 @@
 #!/bin/sh -l
 
+which ansible
+
 # Print version
 ansible --version
 
