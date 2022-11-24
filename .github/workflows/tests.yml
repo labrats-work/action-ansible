@@ -72,10 +72,10 @@ jobs:
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
       - name: Assert Pass ${{ matrix.test }}
-        if: success() && steps.test.outcome != 'success'
+        if: steps.test.outcome != 'success'
         run: |
           exit 1
       - name: Assert Fail ${{ matrix.test }}
-        if: failure() && steps.test.outcome == 'success'
+        if: steps.test.outcome == 'success'
         run: |
-          exit 1
+          exit 0
