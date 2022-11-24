@@ -20,22 +20,22 @@ jobs:
       fail-fast: false
       matrix: 
         test: [ basic, requirements, keyfile ]
-        keyFile: [ "", invalid, id_rsa, id_ed25519 ]
+        keyFile: [ "", id_invalid, id_rsa, id_ed25519 ]
         exclude:
           - test: basic
-            keyfile: invalid
+            keyfile: id_invalid
           - test: basic
             keyfile: id_rsa
           - test: basic
             keyfile: id_ed25519
 
           - test: requirements
-            keyfile: invalid
+            keyfile: id_invalid
           - test: requirements
             keyfile: id_rsa
           - test: requirements
             keyfile: id_ed25519
-            
+
           - test: keyfile
             keyfile: ''
         include:
