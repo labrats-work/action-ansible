@@ -21,6 +21,17 @@ jobs:
       matrix: 
         test: [ basic, requirements, keyfile ]
         keyFile: [ "", id_rsa, id_ed25519 ]
+        exclude:
+          - test: basic
+            keyfile: id_rsa
+          - test: basic
+            keyfile: id_ed25519
+          - test: requirements
+            keyfile: id_rsa
+          - test: requirements
+            keyfile: id_ed25519
+          - test: keyfile
+            keyfile: ''
         include:
           - requirementsFile: 'requirements.yml'
           - inventoryFile: 'inventory'
