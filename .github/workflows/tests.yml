@@ -46,7 +46,7 @@ jobs:
 
           - test: keyfile
             keyfile: id_invalid
-            expectedResult: error
+            expectedResult: failure
 
     steps:
       - uses: actions/checkout@v3
