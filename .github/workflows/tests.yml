@@ -54,7 +54,7 @@ jobs:
       - name: Setup test environment.
         run: |
           cd tests/${{ matrix.test }}
-          if [ -f ${{ matrix.keyFile }} ]
+          if [ -z "${{ matrix.keyFile }}" && -f ${{ matrix.keyFile }} ]
           then
             xargs -a ${{ matrix.keyFile }} -I{} -d'\n' echo ::add-mask::{} > /dev/null
             echo "Loading keyfile \"${{ matrix.keyFile }}\" into GITHUB_ENV."
