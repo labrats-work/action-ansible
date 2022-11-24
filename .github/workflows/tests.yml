@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Ansbile action tests.  
     steps:
+      - uses: actions/checkout@v3
       - name: default
         id: test_default
         uses: ./
@@ -24,6 +25,7 @@ jobs:
           - playbookFile: 'site.yml'
 
     steps:
+      - uses: actions/checkout@v3
       - name: ${{ matrix.test }}
         uses: ./
         with:
