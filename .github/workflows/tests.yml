@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Ansbile action tests.    
     strategy:
+      fail-fast: false
       matrix: 
         test: [ basic, requirements, keyfile ]
         keyFile: [ "", id_rsa, id_ed25519 ]
