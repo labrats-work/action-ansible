@@ -27,14 +27,14 @@ jobs:
           - keyFile: id_rsa
           - keyFile: id_ed25519
         include:
-          - requirementsFile: 'requirements.yml'
-          - inventoryFile: 'inventory'
-          - playbookFile: 'site.yml'
           # include keyfile tests with keyfiles
           - test: keyfile
             keyFile: id_rsa
           - test: keyfile
             keyFile: id_ed25519
+          - requirementsFile: 'requirements.yml'
+          - inventoryFile: 'inventory'
+          - playbookFile: 'site.yml'
 
     steps:
       - uses: actions/checkout@v3
