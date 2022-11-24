@@ -41,7 +41,6 @@ jobs:
         include:
           - expectedResult: success
           - requirementsFile: requirements.yml
-          - requirementsFile: requirements.yml
           - inventoryFile: inventory
           - playbookFile: site.yml
 
@@ -54,7 +53,7 @@ jobs:
       - name: Setup test environment.
         run: |
           cd tests/${{ matrix.test }}
-          if [ ! -z "${{ matrix.keyFile }}" && -f ${{ matrix.keyFile }} ]
+          if [ -f ${{ matrix.keyFile }} ]
           then
             xargs -a ${{ matrix.keyFile }} -I{} -d'\n' echo ::add-mask::{} > /dev/null
             echo "Loading keyfile \"${{ matrix.keyFile }}\" into GITHUB_ENV."
@@ -62,6 +61,7 @@ jobs:
             cat ${{ matrix.keyFile }} >> $GITHUB_ENV
             echo EOF >> $GITHUB_ENV
           fi
+        if: matrix.keyFile != ""
       - name: Run test for ${{ matrix.test }}
         uses: ./
         id: test
