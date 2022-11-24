@@ -19,6 +19,8 @@ then
   echo "\$KEYFILE is set. Starting ssh-agent and adding to key collection."
   eval `ssh-agent`
   echo "${KEYFILE}" | ssh-add -
+  status=$?
+  [ $status -eq 0 ] && echo "$cmd command was successful" || exit $status
 else
   echo "\$KEYFILE not set. You'll most probably only be able to work on localhost."
 fi
