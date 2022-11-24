@@ -72,7 +72,7 @@ jobs:
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
       - name: Assert failure ${{ matrix.test }}
-        if: steps.test.outcome == matrix.expectedResult
+        if: always() && steps.test.outcome == matrix.expectedResult
         run: |
           echo "::add-mask::$KEYFILE"
           exit 0
