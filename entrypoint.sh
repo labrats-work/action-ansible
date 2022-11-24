@@ -10,7 +10,6 @@ if [ ! -z "$INPUT_WORKINGDIRECTORY" ]
 then
   echo "\$INPUT_WORKINGDIRECTORY is set. Changing working directory."
   cd $INPUT_WORKINGDIRECTORY
-else
 fi
 
 
@@ -51,14 +50,6 @@ then
   echo "\$INPUT_REQUIREMENTSFILE not set. Won't install any additional external roles."
 else
   REQUIREMENTS=$INPUT_REQUIREMENTSFILE
-  export ROLES_PATH=
-  if [ -z "$INPUT_ROLESPATH" ]
-  then
-    echo "\$INPUT_ROLESPATH not set. Will install roles in standard path."
-  else
-    echo "\$INPUT_ROLESPATH is set. Will install roles to ${INPUT_ROLESPATH}."
-    export ROLES_PATH=$INPUT_ROLESPATH
-  fi
   echo "\$INPUT_REQUIREMENTSFILE is set. Will use ${INPUT_REQUIREMENTSFILE} to install external roles."
   ansible-galaxy install --force \
     --roles-path ${ROLES_PATH} \
