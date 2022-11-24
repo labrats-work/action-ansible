@@ -22,6 +22,8 @@ jobs:
         keyFile: [ "", id_rsa, id_ed25519 ]
         exclude:
           # exclude combinations with keyfiles
+          - test: keyfile
+            keyFile: ''
           - keyFile: id_rsa
           - keyFile: id_ed25519
         include:
