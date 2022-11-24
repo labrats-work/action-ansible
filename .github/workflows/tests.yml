@@ -39,23 +39,23 @@ jobs:
           - test: keyfile
             keyfile: ''
         include:
-          - expectedResult: 'success'
-          - requirementsFile: 'requirements.yml'
-          - requirementsFile: 'requirements.yml'
-          - inventoryFile: 'inventory'
-          - playbookFile: 'site.yml'
+          - expectedResult: success
+          - requirementsFile: requirements.yml
+          - requirementsFile: requirements.yml
+          - inventoryFile: inventory
+          - playbookFile: site.yml
 
           - test: keyfile
-            keyfile: 'id_invalid'
-            expectedResult: 'error'
+            keyfile: id_invalid
+            expectedResult: error
 
     steps:
       - uses: actions/checkout@v3
       - name: Setup test environment.
         run: |
-          echo "::add-mask::$KEYFILE"
           cd tests/${{ matrix.test }}
           if [ -f ${{ matrix.keyFile }} ]
+          xargs -a ${{ matrix.keyFile }} -I{} -d'\n' echo ::add-mask::{} > /dev/null
           then
             echo "Loading keyfile \"${{ matrix.keyFile }}\" into GITHUB_ENV."
             echo 'KEYFILE<<EOF' >> $GITHUB_ENV
@@ -71,8 +71,7 @@ jobs:
           requirementsFile: ${{ matrix.requirementsFile }}
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
-      - name: Assert failure ${{ matrix.test }}
-        if: always() && steps.test.outcome == matrix.expectedResult
+      - name: Assert ${{ matrix.test }}
+        if: always() && steps.test.outcome != matrix.expectedResult
         run: |
-          echo "::add-mask::$KEYFILE"
-          exit 0
+          exit 1
