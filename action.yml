@@ -3,40 +3,34 @@ name: 'Ansbile Action'
 author: 'Thomas Pisula'
 description: 'Execute Ansible as Github Action.'
 inputs:
+  workingDirectory:
+    description: 'If set, changes the working directory prior to execution of ansible commands.'
+    required: true
+    default: '.'  
   requirementsFile:
-    description: 'requirements file'
+    description: 'The requirements file to use.'
     required: true
     default: 'requirements.yml'
   inventoryFile:
-    description: 'inventory file'
+    description: 'The inventory file to use.'
     required: true
     default: 'inventory'
   playbookFile:
-    description: 'playbook file'
+    description: 'The playbook file to use.'
     required: true
-    default: 'site.yml'
-  workingDirectory:
-    description: 'working directory'
-    required: true
-    default: '.'    
-  sshKeyFile:
-    description: 'sshkey to use for host connections'
+    default: 'site.yml'  
+  keyFile:
+    description: 'Keyfile to use for host connections.'
     required: false
 outputs:
   ansibleVersion: 
     description: 'The version of ansible used.'
-  requirementsFile: 
-    description: 'The requirements file used.'
-  inventoryFile: 
-    description: 'The inventory file used.'
-  playbookFile: 
-    description: 'The playbook file used.'
 runs:
   using: 'docker'
   image: 'dockerfile'
   args:
+    - ${{ inputs.workingDirectory }}
     - ${{ inputs.requirementsFile }}
     - ${{ inputs.inventoryFile }}
     - ${{ inputs.playbookFile }}
-    - ${{ inputs.workingDirectory }}
-    - ${{ inputs.sshKeyFile }}
+    - ${{ inputs.keyFile }}

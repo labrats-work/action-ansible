@@ -2,22 +2,60 @@
 
 # get version
 ansibleVersion=$(ansible --version | head -n 1)
-requirementsFile=$1
-inventoryFile=$2
-playbookFile=$3
-workingDirectory=$4
-
 # output ansibleVersion
 echo "ansibleVersion=$ansibleVersion" >> $GITHUB_OUTPUT
-# output requirementsFile
-echo "requirementsFile=$requirementsFile" >> $GITHUB_OUTPUT
-# output inventoryFile
-echo "inventoryFile=$inventoryFile" >> $GITHUB_OUTPUT
-# output playbookFile
-echo "playbookFile=$playbookFile" >> $GITHUB_OUTPUT
 
-cd $workingDirectory
+# Evaluate workingdirectory
+if [ ! -z "$INPUT_WORKINGDIRECTORY" ]
+then
+  echo "\$INPUT_WORKINGDIRECTORY is set. Changing working directory."
+  cd $INPUT_WORKINGDIRECTORY
+fi
 
-ansible-galaxy install -r $requirementsFile
 
-ansible-playbook -i $inventoryFile $playbookFile
+# Evaluate keyfile
+export KEYFILE=
+if [ ! -z "$INPUT_KEYFILE" ]
+then
+  echo "\$INPUT_KEYFILE is set. Will use ssh keyfile for host connections."
+  export KEYFILE="--key-file ${INPUT_KEYFILE}"
+else
+  echo "\$INPUT_KEYFILE not set. You'll most probably only be able to work on localhost."
+fi
+
+# Evaluate verbosity
+export VERBOSITY=
+if [ -z "$INPUT_VERBOSITY" ]
+then
+  echo "\$INPUT_VERBOSITY not set. Will use standard verbosity."
+else
+  echo "\$INPUT_VERBOSITY is set. Will use verbosity level $INPUT_VERBOSITY."
+  export VERBOSITY="-$INPUT_VERBOSITY"
+fi
+
+# Evaluate inventory file
+export INVENTORY=
+if [ -z "$INPUT_INVENTORYFILE" ]
+then
+  echo "\$INPUT_INVENTORYFILE not set. Won't use any inventory option at playbook call."
+else
+  echo "\$INPUT_INVENTORYFILE is set. Will use ${INPUT_INVENTORYFILE} as inventory file."
+  export INVENTORY="-i ${INPUT_INVENTORYFILE}"
+fi
+
+# Evaluate requirements.
+export REQUIREMENTS=
+if [ -z "$INPUT_REQUIREMENTSFILE" ]
+then
+  echo "\$INPUT_REQUIREMENTSFILE not set. Won't install any additional external roles."
+else
+  REQUIREMENTS=$INPUT_REQUIREMENTSFILE
+  echo "\$INPUT_REQUIREMENTSFILE is set. Will use ${INPUT_REQUIREMENTSFILE} to install external roles."
+  ansible-galaxy install --force \
+    -r ${REQUIREMENTS} \
+    ${VERBOSITY}
+fi
+
+echo "going to execute: "
+echo ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILE} ${KEYFILEVAULTPASS} ${VERBOSITY}
+ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILE} ${KEYFILEVAULTPASS} ${VERBOSITY}
