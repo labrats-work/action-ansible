@@ -30,6 +30,10 @@ jobs:
           - playbookFile: 'site.yml'
           # include keyfile tests with keyfiles
           - test: keyfile
+            requirementsFile: 'requirements.yml'
+            inventoryFile: 'inventory'
+            playbookFile: 'site.yml'
+          - test: keyfile
             keyFile: id_rsa
           - test: keyfile
             keyFile: id_ed25519
