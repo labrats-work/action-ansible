@@ -19,14 +19,20 @@ jobs:
     strategy:
       matrix: 
         test: [ basic, requirements, keyfile ]
+        keyFile: [ "", id_rsa, id_ed25519 ]
+        exclude:
+          # exclude all tests with keyfiles
+          - keyFile: id_rsa
+          - keyFile: id_ed25519
         include:
           - requirementsFile: 'requirements.yml'
           - inventoryFile: 'inventory'
           - playbookFile: 'site.yml'
-          - test: keyfile
-            keyFile: id_rsa
-          - test: keyfile
-            keyFile: id_ed25519
+          # include keyfile tests with keyfiles
+          - keyFile: id_rsa
+            test: keyfile
+          - keyFile: id_ed25519
+            test: keyfile
 
     steps:
       - uses: actions/checkout@v3
