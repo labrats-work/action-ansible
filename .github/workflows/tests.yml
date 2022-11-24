@@ -25,6 +25,8 @@ jobs:
           - playbookFile: 'site.yml'
           - test: keyfile
             keyFile: id_rsa
+          - test: keyfile
+            keyFile: id_ed25519
 
     steps:
       - uses: actions/checkout@v3
