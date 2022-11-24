@@ -71,13 +71,8 @@ jobs:
           requirementsFile: ${{ matrix.requirementsFile }}
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
-      - name: Assert Fail ${{ matrix.test }}
-        if: steps.test.outcome != 'success'
+      - name: Assert test ${{ matrix.test }}
+        if: always()
         run: |
-          [ "${{ matrix.expectedResult }}" == "error"] && exit 0
-          exit 1
-      - name: Assert Pass ${{ matrix.test }}
-        if: steps.test.outcome == 'success'
-        run: |
-          [ "${{ matrix.expectedResult }}" == "success"] && exit 0
+          [ "${{ matrix.expectedResult }}" == "${{ steps.test.outcome }}"] && exit 0
           exit 1
