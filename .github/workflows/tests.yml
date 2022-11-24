@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: set env variable
+      - name: Setup test environment.
         run: |
           cd tests/${{ matrix.test }}
           if [ -f ${{ matrix.keyFile }} ]
@@ -49,7 +49,7 @@ jobs:
             cat ${{ matrix.keyFile }} >> $GITHUB_ENV
             echo EOF >> $GITHUB_ENV
           fi
-      - name: ${{ matrix.test }}
+      - name: Run test for ${{ matrix.test }}
         uses: ./
         with:
           workingDirectory: "/tests/${{ matrix.test }}"
