@@ -74,10 +74,10 @@ jobs:
       - name: Assert Fail ${{ matrix.test }}
         if: steps.test.outcome != 'success'
         run: |
-          [ "${{ matrix.expectedResult }}" == 'error'] && exit 0
+          [ "${{ matrix.expectedResult }}" == "error"] && exit 0
           exit 1
       - name: Assert Pass ${{ matrix.test }}
         if: steps.test.outcome == 'success'
         run: |
-          [ "${{ matrix.expectedResult }}" == 'success'] && exit 0
+          [ "${{ matrix.expectedResult }}" == "success"] && exit 0
           exit 1
