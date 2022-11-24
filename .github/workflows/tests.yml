@@ -74,5 +74,5 @@ jobs:
       - name: Assert test ${{ matrix.test }}
         if: always()
         run: |
-          [ "${{ matrix.expectedResult }}" == "${{ steps.test.outcome }}"] && exit 0
+          [ "${{ matrix.expectedResult }}" == "${{ steps.test.outcome }}" ] && exit 0
           exit 1
