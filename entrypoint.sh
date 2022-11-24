@@ -1,5 +1,8 @@
 #!/bin/sh -l
 
+set -e
+set -o pipefail
+
 # get version
 ansibleVersion=$(ansible --version | head -n 1)
 # output ansibleVersion
