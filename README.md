@@ -2,16 +2,17 @@
 
 This action:
 
-- [x] Prints the ansible verion
-- [x] Installs requirements according to {{requirements}} file.
-- [x] Applies inventory according to {{inventory}} file
+- [x] Prints the ansible version
+- [x] Ability to specify a requirements file
+- [x] Ability to specify an inventory file
+- [x] Ability to specify a sshkey
 
 ---
 
 ## TODO
 
-- [ ] Ability to specify an sshkey file
-- [ ] Tests for each scenario
+- [ ] Tests to validate passing scenarios
+- [ ] Tests to validate failing scenarios
 - [ ] Refactor and polish
 - [ ] Cleanup the docs
 

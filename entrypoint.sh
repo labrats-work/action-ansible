@@ -1,5 +1,8 @@
 #!/bin/sh -l
 
+set -e
+set -o pipefail
+
 # get version
 ansibleVersion=$(ansible --version | head -n 1)
 # output ansibleVersion
@@ -14,13 +17,13 @@ fi
 
 
 # Evaluate keyfile
-export KEYFILE=
-if [ ! -z "$INPUT_KEYFILE" ]
+if [ ! -z "$KEYFILE" ]
 then
-  echo "\$INPUT_KEYFILE is set. Will use ssh keyfile for host connections."
-  export KEYFILE="--key-file ${INPUT_KEYFILE}"
+  echo "\$KEYFILE is set. Starting ssh-agent and adding to key collection."
+  eval `ssh-agent`
+  echo "${KEYFILE}" | ssh-add -
 else
-  echo "\$INPUT_KEYFILE not set. You'll most probably only be able to work on localhost."
+  echo "\$KEYFILE not set. You'll most probably only be able to work on localhost."
 fi
 
 # Evaluate verbosity
@@ -57,5 +60,5 @@ else
 fi
 
 echo "going to execute: "
-echo ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILE} ${KEYFILEVAULTPASS} ${VERBOSITY}
-ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILE} ${KEYFILEVAULTPASS} ${VERBOSITY}
+echo ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILEVAULTPASS} ${VERBOSITY}
+ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILEVAULTPASS} ${VERBOSITY}
