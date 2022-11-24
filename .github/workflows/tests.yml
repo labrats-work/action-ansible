@@ -71,5 +71,5 @@ jobs:
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
       - name: Assert failure ${{ matrix.test }}
-        if: steps.test.outcome != matrix.expectedResult
+        if: steps.test.outcome == matrix.expectedResult
         run: exit 0
