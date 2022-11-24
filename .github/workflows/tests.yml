@@ -74,10 +74,10 @@ jobs:
       - name: Assert Fail ${{ matrix.test }}
         if: steps.test.outcome != 'success'
         run: |
-          [ "${{ maxtrix.expectedResult }}" == 'success '] && exit 1
+          [ "${{ maxtrix.expectedResult }}" == 'success'] && exit 1
           exit 0
       - name: Assert Pass ${{ matrix.test }}
         if: steps.test.outcome == 'success'
         run: |
-          [ "${{ maxtrix.expectedResult }}" != 'success '] && exit 1
+          [ "${{ maxtrix.expectedResult }}" != 'success'] && exit 1
           exit 0
