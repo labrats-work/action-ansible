@@ -71,11 +71,13 @@ jobs:
           requirementsFile: ${{ matrix.requirementsFile }}
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
-      - name: Assert Pass ${{ matrix.test }}
+      - name: Assert Fail ${{ matrix.test }}
         if: steps.test.outcome != 'success'
         run: |
-          exit 1
-      - name: Assert Fail ${{ matrix.test }}
+          [ maxtrix.expectedResult == 'success '] && exit 1
+          exit 0
+      - name: Assert Pass ${{ matrix.test }}
         if: steps.test.outcome == 'success'
         run: |
+          [ maxtrix.expectedResult != 'success '] && exit 1
           exit 0
