@@ -61,7 +61,7 @@ jobs:
             cat ${{ matrix.keyFile }} >> $GITHUB_ENV
             echo EOF >> $GITHUB_ENV
           fi
-        if: matrix.keyFile != ""
+        if: matrix.keyFile != ''
       - name: Run test for ${{ matrix.test }}
         uses: ./
         id: test
