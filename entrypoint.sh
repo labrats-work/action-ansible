@@ -52,7 +52,6 @@ else
   REQUIREMENTS=$INPUT_REQUIREMENTSFILE
   echo "\$INPUT_REQUIREMENTSFILE is set. Will use ${INPUT_REQUIREMENTSFILE} to install external roles."
   ansible-galaxy install --force \
-    --roles-path ${ROLES_PATH} \
     -r ${REQUIREMENTS} \
     ${VERBOSITY}
 fi
