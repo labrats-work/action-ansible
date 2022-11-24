@@ -1,23 +1,23 @@
 #!/bin/sh -l
 
 # get version
-nsbl_version=$(ansible --version | head -n 1)
-nsbl_requirements=$1
-nsbl_inventory=$2
-nsbl_playbook=$3
-nsbl_workingdirectory=$4
+ansibleVersion=$(ansible --version | head -n 1)
+requirementsFile=$1
+inventoryFile=$2
+playbookFile=$3
+workingDirectory=$4
 
-# output nsbl_version
-echo "nsbl_version=$nsbl_version" >> $GITHUB_OUTPUT
-# output nsbl_requirements
-echo "nsbl_requirements=$nsbl_requirements" >> $GITHUB_OUTPUT
-# output nsbl_inventory
-echo "nsbl_inventory=$nsbl_inventory" >> $GITHUB_OUTPUT
-# output nsbl_playbook
-echo "nsbl_playbook=$nsbl_playbook" >> $GITHUB_OUTPUT
+# output ansibleVersion
+echo "ansibleVersion=$ansibleVersion" >> $GITHUB_OUTPUT
+# output requirementsFile
+echo "requirementsFile=$requirementsFile" >> $GITHUB_OUTPUT
+# output inventoryFile
+echo "inventoryFile=$inventoryFile" >> $GITHUB_OUTPUT
+# output playbookFile
+echo "playbookFile=$playbookFile" >> $GITHUB_OUTPUT
 
-cd $nsbl_workingdirectory
+cd $workingDirectory
 
-ansible-galaxy install -r $nsbl_requirements
+ansible-galaxy install -r $requirementsFile
 
-ansible-playbook -i $nsbl_inventory $nsbl_playbook
+ansible-playbook -i $inventoryFile $playbookFile

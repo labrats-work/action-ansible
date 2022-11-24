@@ -3,40 +3,40 @@ name: 'Ansbile Action'
 author: 'Thomas Pisula'
 description: 'Execute Ansible as Github Action.'
 inputs:
-  nsbl_requirements:
+  requirementsFile:
     description: 'requirements file'
     required: true
     default: 'requirements.yml'
-  nsbl_inventory:
+  inventoryFile:
     description: 'inventory file'
     required: true
     default: 'inventory'
-  nsbl_playbook:
+  playbookFile:
     description: 'playbook file'
     required: true
     default: 'site.yml'
-  nsbl_workingdirectory:
+  workingDirectory:
     description: 'working directory'
     required: true
     default: '.'    
-  nsbl_sshkey:
+  sshKeyFile:
     description: 'sshkey to use for host connections'
     required: false
 outputs:
-  nsbl_version: 
+  ansibleVersion: 
     description: 'The version of ansible used.'
-  nsbl_requirements: 
+  requirementsFile: 
     description: 'The requirements file used.'
-  nsbl_inventory: 
+  inventoryFile: 
     description: 'The inventory file used.'
-  nsbl_playbook: 
+  playbookFile: 
     description: 'The playbook file used.'
 runs:
   using: 'docker'
   image: 'dockerfile'
   args:
-    - ${{ inputs.nsbl_requirements }}
-    - ${{ inputs.nsbl_inventory }}
-    - ${{ inputs.nsbl_playbook }}
-    - ${{ inputs.nsbl_workingdirectory }}
-    - ${{ inputs.nsbl_sshkey }}
+    - ${{ inputs.requirementsFile }}
+    - ${{ inputs.inventoryFile }}
+    - ${{ inputs.playbookFile }}
+    - ${{ inputs.workingDirectory }}
+    - ${{ inputs.sshKeyFile }}

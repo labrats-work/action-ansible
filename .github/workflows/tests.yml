@@ -10,7 +10,7 @@ jobs:
         id: test_default
         uses: labrats-work/action-ansible@main
         with:
-          nsbl_workingdirectory: "/tests/default"
+          workingDirectory: "/tests/default"
 
   tests_matrix:
     runs-on: ubuntu-latest
@@ -19,15 +19,15 @@ jobs:
       matrix: 
         test: [ basic, requirements ]
         include:
-          - nsbl_requirements: 'requirements.yml'
-          - nsbl_inventory: 'inventory'
-          - nsbl_playbook: 'site.yml'
+          - requirementsFile: 'requirements.yml'
+          - inventoryFile: 'inventory'
+          - playbookFile: 'site.yml'
 
     steps:
       - name: ${{ matrix.test }}
         uses: labrats-work/action-ansible@main
         with:
-          nsbl_workingdirectory: "/tests/${{ matrix.test }}"
-          nsbl_requirements: ${{ matrix.nsbl_requirements }}
-          nsbl_inventory: ${{ matrix.nsbl_inventory }}
-          nsbl_playbook: ${{ matrix.nsbl_playbook }}
+          workingDirectory: "/tests/${{ matrix.test }}"
+          requirementsFile: ${{ matrix.requirementsFile }}
+          inventoryFile: ${{ matrix.inventoryFile }}
+          playbookFile: ${{ matrix.playbookFile }}
