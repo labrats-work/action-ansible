@@ -14,11 +14,11 @@ fi
 
 
 # Evaluate keyfile
-export KEYFILE=
 if [ ! -z "$INPUT_KEYFILE" ]
 then
-  echo "\$INPUT_KEYFILE is set. Will use ssh keyfile for host connections."
-  export KEYFILE="--key-file ${INPUT_KEYFILE}"
+  echo "\$INPUT_KEYFILE is set. Starting ssh-agent and adding to key collection."
+  eval `ssh-agent`
+  echo "${INPUT_KEYFILE}" | ssh-add -
 else
   echo "\$INPUT_KEYFILE not set. You'll most probably only be able to work on localhost."
 fi

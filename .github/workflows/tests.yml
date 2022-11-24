@@ -18,14 +18,20 @@ jobs:
     name: Ansbile action tests.    
     strategy:
       matrix: 
-        test: [ basic, requirements ]
+        test: [ basic, requirements, keyfile ]
         include:
           - requirementsFile: 'requirements.yml'
           - inventoryFile: 'inventory'
           - playbookFile: 'site.yml'
+          - test: keyfile
+            keyFile: id_rsa
 
     steps:
       - uses: actions/checkout@v3
+      - name: ssh-keyfile
+        run: |
+          const base64 = process.env.GITHUB_PRIVATE_KEY
+          const privateKey = Buffer.from(base64, 'base64')
       - name: ${{ matrix.test }}
         uses: ./
         with:

@@ -1,0 +1,5 @@
+---
+- hosts: target
+  tasks:
+  - debug:
+      msg: hello world
