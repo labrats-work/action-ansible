@@ -29,7 +29,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: set env variable
-        run: echo "KEYFILE=$(cat ${{ matrix.keyFile }})" >> $GITHUB_ENV
+        run: |
+          cd tests/${{ matrix.test }}
+          echo "KEYFILE=$(cat ${{ matrix.keyFile }})" >> $GITHUB_ENV
       - name: ${{ matrix.test }}
         uses: ./
         with:
