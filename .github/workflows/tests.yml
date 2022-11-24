@@ -21,7 +21,7 @@ jobs:
         test: [ basic, requirements, keyfile ]
         keyFile: [ "", id_rsa, id_ed25519 ]
         exclude:
-          # exclude all tests with keyfiles
+          # exclude combinations with keyfiles
           - keyFile: id_rsa
           - keyFile: id_ed25519
         include:
@@ -29,10 +29,10 @@ jobs:
           - inventoryFile: 'inventory'
           - playbookFile: 'site.yml'
           # include keyfile tests with keyfiles
-          - keyFile: id_rsa
-            test: keyfile
-          - keyFile: id_ed25519
-            test: keyfile
+          - test: keyfile
+            keyFile: id_rsa
+          - test: keyfile
+            keyFile: id_ed25519
 
     steps:
       - uses: actions/checkout@v3
