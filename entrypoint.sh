@@ -56,8 +56,6 @@ else
     ${VERBOSITY}
 fi
 
-cd $workingDirectory
-
 echo "going to execute: "
 echo ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILE} ${KEYFILEVAULTPASS} ${VERBOSITY}
 ansible-playbook ${INVENTORY} ${INPUT_PLAYBOOKFILE} ${EXTRAFILE} ${INPUT_EXTRAVARS} ${KEYFILE} ${KEYFILEVAULTPASS} ${VERBOSITY}
