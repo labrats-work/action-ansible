@@ -1,39 +1,42 @@
 # Ansible docker action
 
-This action:
+## Example usage
 
-- [x] Prints the ansible version
-- [x] Ability to specify a requirements file
-- [x] Ability to specify an inventory file
-- [x] Ability to specify a sshkey
-
----
-
-## TODO
-
-- [ ] Tests to validate passing scenarios
-- [ ] Tests to validate failing scenarios
-- [ ] Refactor and polish
-- [ ] Cleanup the docs
+``` yml
+- uses: labrats-work/action-ansible@v1
+  with:
+    workingDirectory: ./ansible
+    requirementsFile: requirements.yml
+    inventoryFile: inventory
+    playbookFile: site.yml
+    sshKey: ${{ secrets.SSH_PRIVATE_KEY }}
+```
 
 ## Inputs
 
-## `ansible_requirements`
-
-**Optional** Inventory file name. Default `"requirements.yml"`.
-
-## `ansible_inventory`
-
-**Required** Inventory file name. Default `"inventory"`.
+|Variable|Required|Default|
+|---|---|---|
+|workingDirectory|false|.|
+|requirementsFile|false|requirements.yml|
+|inventoryFile|false|inventory|
+|playbookFile|false|site.yml|
+|sshKey|false|   |
 
 ## Outputs
 
-## `TBD`
+|Variable|Type|
+|---|---|
+|ansibleVersion|string|
 
-TBD
+---
 
-## Example usage
+## Requirements
 
-uses: labrats-work/action-ansible@v1
-with:
-  who-to-greet: 'Mona the Octocat'
+- [x] Ability to specify working directory
+- [x] Ability to specify requirements file
+- [x] Ability to specify inventory file
+- [x] Ability to specify playbook file
+- [x] Ability to specify sshkey
+- [x] Outputs the ansible version
+- [x] Tests to validate passing scenarios
+- [x] Tests to validate failing scenarios

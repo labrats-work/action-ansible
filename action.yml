@@ -5,22 +5,22 @@ description: 'Execute Ansible as Github Action.'
 inputs:
   workingDirectory:
     description: 'If set, changes the working directory prior to execution of ansible commands.'
-    required: true
+    required: false
     default: '.'  
   requirementsFile:
     description: 'The requirements file to use.'
-    required: true
+    required: false
     default: 'requirements.yml'
   inventoryFile:
     description: 'The inventory file to use.'
-    required: true
+    required: false
     default: 'inventory'
   playbookFile:
     description: 'The playbook file to use.'
-    required: true
+    required: false
     default: 'site.yml'  
-  keyFile:
-    description: 'Keyfile to use for host connections.'
+  sshKey:
+    description: 'The sshKey to use for host connections.'
     required: false
 outputs:
   ansibleVersion: 
@@ -33,4 +33,4 @@ runs:
     - ${{ inputs.requirementsFile }}
     - ${{ inputs.inventoryFile }}
     - ${{ inputs.playbookFile }}
-    - ${{ inputs.keyFile }}
+    - ${{ inputs.sshKey }}
