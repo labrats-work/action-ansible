@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Setup test environment.
+      - name: Load keyfile for test.
         run: |
           cd tests/${{ matrix.test }}
           if [ -f ${{ matrix.keyFile }} ]
@@ -71,6 +71,7 @@ jobs:
           requirementsFile: ${{ matrix.requirementsFile }}
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
+          sshKey: ${{ env.KEYFILE }}
       - name: Assert test ${{ matrix.test }}
         if: always()
         run: |
