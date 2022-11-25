@@ -1,16 +1,7 @@
 # Container image that runs your code
-FROM docker.io/alpine:3
+FROM ghcr.io/labrats-work/ops-images/ansible:latest
 
 LABEL org.opencontainers.image.authors="tompisula@labrats.work"
-
-RUN apk -U upgrade
-# Generic pre-req
-RUN apk add curl git openssh
-# Ansible pre-req
-RUN apk add python3
-# Ansible
-RUN apk add ansible
-
 
 COPY tests /tests
 COPY entrypoint.sh /entrypoint.sh
