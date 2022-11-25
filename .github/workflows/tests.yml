@@ -6,8 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     name: Ansbile action tests.  
     steps:
-      - uses: actions/checkout@v3
-      - name: default
+      - 
+        uses: actions/checkout@v3
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: default
         id: test_default
         uses: ./
         with:
@@ -49,8 +58,17 @@ jobs:
             expectedResult: failure
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Load keyfile for test.
+      - 
+        uses: actions/checkout@v3
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: Load keyfile for test.
         run: |
           cd tests/${{ matrix.test }}
           if [ -f ${{ matrix.keyFile }} ]
@@ -62,7 +80,8 @@ jobs:
             echo EOF >> $GITHUB_ENV
           fi
         if: matrix.keyFile != ''
-      - name: Run test for ${{ matrix.test }}
+      - 
+        name: Run test for ${{ matrix.test }}
         uses: ./
         id: test
         continue-on-error: true
@@ -72,7 +91,8 @@ jobs:
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
           sshKey: ${{ env.KEYFILE }}
-      - name: Assert test ${{ matrix.test }}
+      - 
+        name: Assert test ${{ matrix.test }}
         if: always()
         run: |
           [ "${{ matrix.expectedResult }}" == "${{ steps.test.outcome }}" ] && exit 0
