@@ -27,7 +27,6 @@
 |Variable|Type|
 |---|---|
 |ansibleVersion|string|
-
 ---
 
 ## Requirements
