@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM ghcr.io/labrats-work/ops-images/ansible:latest
+FROM docker.io/labratswork/ops-images-ansible:latest
 
 LABEL org.opencontainers.image.authors="tompisula@labrats.work"
 
