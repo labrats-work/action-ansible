@@ -30,8 +30,10 @@ jobs:
 
           - test: keyfile
             keyfile: id_invalid
+            expectedResult: success
           - test: keyfile
             keyfile: id_rsa
+            expectedResult: success
           - test: keyfile
             keyfile: id_ed25519
             expectedResult: failure
