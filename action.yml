@@ -2,9 +2,6 @@
 name: 'Ansible Action'
 author: 'Thomas Pisula'
 description: 'Execute Ansible as Github Action.'
-runs: 
-  using: docker
-  image: 'docker.io/labratswork/ops-images-ansible-action:dev-workflow'
 inputs:
   workingDirectory:
     description: 'If set, changes the working directory prior to execution of ansible commands.'
@@ -29,8 +26,8 @@ outputs:
   ansibleVersion: 
     description: 'The version of ansible used.'
 runs:
-  using: 'docker'
-  image: 'dockerfile'
+  using: docker
+  image: 'docker.io/labratswork/ops-images-ansible-action:dev-workflow'
   args:
     - ${{ inputs.workingDirectory }}
     - ${{ inputs.requirementsFile }}
