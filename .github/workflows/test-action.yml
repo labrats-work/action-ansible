@@ -30,13 +30,13 @@ jobs:
           - playbookFile: site.yml
 
           - test: keyfile
-            keyGen: id_invalid
+            keyGen: invalid
             expectedResult: failure
           - test: keyfile
-            keyGen: id_rsa
+            keyGen: rsa
             expectedResult: success
           - test: keyfile
-            keyGen: id_ed25519
+            keyGen: ed25519
             expectedResult: success
     steps:
       - uses: actions/checkout@v3
