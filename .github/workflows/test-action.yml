@@ -32,11 +32,11 @@ jobs:
           
           - test: basic
             keyGen: rsa
-            expectedResult: failure
+            expectedResult: success
           
           - test: basic
             keyGen: ed25519
-            expectedResult: failure
+            expectedResult: success
     steps:
       - uses: actions/checkout@v3
         with:
