@@ -30,6 +30,10 @@ jobs:
 
           - test: keyfile
             keyfile: id_invalid
+          - test: keyfile
+            keyfile: id_rsa
+          - test: keyfile
+            keyfile: id_ed25519
             expectedResult: failure
     steps:
       - uses: actions/checkout@v3
