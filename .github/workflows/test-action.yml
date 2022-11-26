@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       max-parallel: 10
       matrix: 
-        test: [ default, basic, requirements, keyfile ]
+        test: [ default, basic, requirements ]
         keyGen: [ "", invalid, rsa, ed25519 ]
         exclude:
           - keyGen: invalid
@@ -22,22 +22,17 @@ jobs:
           - keyGen: ed25519
           - keyGen: ''
             test: keyfile
-
+        exclude:
+          - keyGen: invalid
+          - keyGen: rsa
+          - keyGen: ed25519
         include:
           - expectedResult: success
           - requirementsFile: requirements.yml
           - inventoryFile: inventory
           - playbookFile: site.yml
-
-          - test: keyfile
-            keyGen: invalid
+          - keyGen: invalid
             expectedResult: failure
-          - test: keyfile
-            keyGen: rsa
-            expectedResult: success
-          - test: keyfile
-            keyGen: ed25519
-            expectedResult: success
     steps:
       - uses: actions/checkout@v3
         with:
