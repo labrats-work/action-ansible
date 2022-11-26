@@ -7,46 +7,21 @@ env:
 
 jobs:
 
-  tests_default:
-    runs-on: ubuntu-latest
-    name: Ansbile action tests.  
-    steps:
-      - 
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ env.BRANCH_NAME }}
-      - 
-        name: default
-        id: test_default
-        uses: ./
-        with:
-          workingDirectory: "/tests/default"
-
   tests_matrix:
     runs-on: ubuntu-latest
     name: Ansbile action tests.    
     strategy:
       fail-fast: false
       matrix: 
-        test: [ basic, requirements, keyfile ]
+        test: [ default, basic, requirements, keyfile ]
         keyFile: [ "", id_invalid, id_rsa, id_ed25519 ]
         exclude:
-          - test: basic
-            keyfile: id_invalid
-          - test: basic
-            keyfile: id_rsa
-          - test: basic
-            keyfile: id_ed25519
+          - keyfile: id_invalid
+          - keyfile: id_rsa
+          - keyfile: id_ed25519
+          - keyfile: ''
+            test: keyfile
 
-          - test: requirements
-            keyfile: id_invalid
-          - test: requirements
-            keyfile: id_rsa
-          - test: requirements
-            keyfile: id_ed25519
-
-          - test: keyfile
-            keyfile: ''
         include:
           - expectedResult: success
           - requirementsFile: requirements.yml
@@ -56,14 +31,11 @@ jobs:
           - test: keyfile
             keyfile: id_invalid
             expectedResult: failure
-
     steps:
-      - 
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           ref: ${{ env.BRANCH_NAME }}
-      - 
-        name: Load keyfile for test.
+      - name: Load keyfile for test.
         run: |
           cd tests/${{ matrix.test }}
           if [ -f ${{ matrix.keyFile }} ]
@@ -75,9 +47,8 @@ jobs:
             echo EOF >> $GITHUB_ENV
           fi
         if: matrix.keyFile != ''
-      - 
-        name: Run test for ${{ matrix.test }}
-        uses: ./
+      - name: Run test for ${{ matrix.test }}
+        uses: ./tests/
         id: test
         continue-on-error: true
         with:
@@ -86,8 +57,7 @@ jobs:
           inventoryFile: ${{ matrix.inventoryFile }}
           playbookFile: ${{ matrix.playbookFile }}
           sshKey: ${{ env.KEYFILE }}
-      - 
-        name: Assert test ${{ matrix.test }}
+      - name: Assert test ${{ matrix.test }}
         if: always()
         run: |
           [ "${{ matrix.expectedResult }}" == "${{ steps.test.outcome }}" ] && exit 0

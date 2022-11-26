@@ -1,0 +1,39 @@
+# action.yml
+name: 'Ansible Action'
+author: 'Thomas Pisula'
+description: 'Execute Ansible as Github Action.'
+inputs:
+  workingDirectory:
+    description: 'If set, changes the working directory prior to execution of ansible commands.'
+    required: false
+    default: '.'  
+  requirementsFile:
+    description: 'The requirements file to use.'
+    required: false
+    default: 'requirements.yml'
+  inventoryFile:
+    description: 'The inventory file to use.'
+    required: false
+    default: 'inventory'
+  playbookFile:
+    description: 'The playbook file to use.'
+    required: false
+    default: 'site.yml'  
+  sshKey:
+    description: 'The sshKey to use for host connections.'
+    required: false
+outputs:
+  ansibleVersion: 
+    description: 'The version of ansible used.'
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.workingDirectory }}
+    - ${{ inputs.requirementsFile }}
+    - ${{ inputs.inventoryFile }}
+    - ${{ inputs.playbookFile }}
+    - ${{ inputs.sshKey }}
+branding:
+  icon: 'cloud-lightning'
+  color: 'purple'
