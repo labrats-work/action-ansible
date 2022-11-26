@@ -48,7 +48,7 @@ jobs:
           fi
         if: matrix.keyFile != ''
       - name: Run test for ${{ matrix.test }}
-        uses: ./tests/
+        uses: ./
         id: test
         continue-on-error: true
         with:
