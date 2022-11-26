@@ -41,7 +41,7 @@ jobs:
           ref: ${{ env.BRANCH_NAME }}
       - name: Update image for test
         run: |
-          sed -i 's|docker.io/labratswork/ops-images-ansible-action|./|' action.yml
+          sed -i 's|docker.io/labratswork/ops-images-ansible-action|Dockerfile|' action.yml
       - name: Load keyfile for test.
         run: |
           cd tests/${{ matrix.test }}
