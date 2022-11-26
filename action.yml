@@ -2,6 +2,9 @@
 name: 'Ansible Action'
 author: 'Thomas Pisula'
 description: 'Execute Ansible as Github Action.'
+runs: 
+  using: docker
+  image: 'docker.io/labratswork/ops-images-ansible-action:dev-workflow'
 inputs:
   workingDirectory:
     description: 'If set, changes the working directory prior to execution of ansible commands.'
