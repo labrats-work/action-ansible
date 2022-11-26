@@ -14,29 +14,28 @@ jobs:
       fail-fast: false
       max-parallel: 10
       matrix: 
-        test: [ default, basic, requirements, keyfile ]
-        keyFile: [ "", id_invalid, id_rsa, id_ed25519 ]
+        test: [ default, basic, requirements ]
+        keyGen: [ "" ]
         exclude:
-          - keyfile: id_invalid
-          - keyfile: id_rsa
-          - keyfile: id_ed25519
-          - keyfile: ''
-            test: keyfile
-
+          - keyGen: invalid
+          - keyGen: rsa
+          - keyGen: ed25519
         include:
           - expectedResult: success
           - requirementsFile: requirements.yml
           - inventoryFile: inventory
           - playbookFile: site.yml
-
-          - test: keyfile
-            keyfile: id_invalid
+          
+          - test: basic
+            keyGen: invalid
             expectedResult: failure
-          - test: keyfile
-            keyfile: id_rsa
+          
+          - test: basic
+            keyGen: rsa
             expectedResult: success
-          - test: keyfile
-            keyfile: id_ed25519
+          
+          - test: basic
+            keyGen: ed25519
             expectedResult: success
     steps:
       - uses: actions/checkout@v3
@@ -45,18 +44,22 @@ jobs:
       - name: Update image for test
         run: |
           sed -i 's|docker.io/labratswork/ops-images-ansible-action|Dockerfile|' action.yml
-      - name: Load keyfile for test.
-        run: |
-          cd tests/${{ matrix.test }}
-          if [ -f ${{ matrix.keyFile }} ]
+      - name: Create and load keyfile for test.
+        run: |          
+          if [ "${{ matrix.keyGen }}" = "invalid" ]
           then
-            xargs -a ${{ matrix.keyFile }} -I{} -d'\n' echo ::add-mask::{}
-            echo "Loading keyfile \"${{ matrix.keyFile }}\" into GITHUB_ENV."
             echo 'KEYFILE<<EOF' >> $GITHUB_ENV
-            cat ${{ matrix.keyFile }} >> $GITHUB_ENV
+            echo $RANDOM >> $GITHUB_ENV
+            echo EOF >> $GITHUB_ENV
+          else
+            ssh-keygen -t ${{ matrix.keyGen }} -N '' -f id_${{ matrix.keyGen }}
+            xargs -a id_${{ matrix.keyGen }} -I{} -d'\n' echo ::add-mask::{}
+            echo "Loading keyfile \"${{ matrix.keyGen }}\" into GITHUB_ENV."
+            echo 'KEYFILE<<EOF' >> $GITHUB_ENV
+            cat id_${{ matrix.keyGen }} >> $GITHUB_ENV
             echo EOF >> $GITHUB_ENV
           fi
-        if: matrix.keyFile != ''
+        if: matrix.keyGen != ''
       - name: Run test for ${{ matrix.test }}
         uses: ./
         id: test
