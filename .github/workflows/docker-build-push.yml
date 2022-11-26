@@ -4,6 +4,7 @@ on: [push]
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  IMAGE_NAME: ansible-action
 
 jobs:
   build-and-push-image:
@@ -43,5 +44,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/ansible-action:${{ env.BRANCH_NAME }}
-            docker.io/labratswork/ops-images-ansible-action:${{ env.BRANCH_NAME }}
+            ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ env.BRANCH_NAME }}
+            docker.io/labratswork/ops-images-${{ env.IMAGE_NAME }}:${{ env.BRANCH_NAME }}
