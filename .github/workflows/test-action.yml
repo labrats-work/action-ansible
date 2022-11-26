@@ -20,12 +20,6 @@ jobs:
           - keyGen: invalid
           - keyGen: rsa
           - keyGen: ed25519
-          - keyGen: ''
-            test: keyfile
-        exclude:
-          - keyGen: invalid
-          - keyGen: rsa
-          - keyGen: ed25519
         include:
           - expectedResult: success
           - requirementsFile: requirements.yml
