@@ -1,4 +1,9 @@
+name: Create and publish a Docker image
+
 on: [push]
+
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
 
@@ -8,6 +13,8 @@ jobs:
     steps:
       - 
         uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH_NAME }}
       - 
         name: default
         id: test_default
@@ -53,6 +60,8 @@ jobs:
     steps:
       - 
         uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH_NAME }}
       - 
         name: Load keyfile for test.
         run: |

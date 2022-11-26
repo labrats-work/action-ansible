@@ -1,5 +1,5 @@
 # action.yml
-name: 'Ansbile Action'
+name: 'Ansible Action'
 author: 'Thomas Pisula'
 description: 'Execute Ansible as Github Action.'
 inputs:
