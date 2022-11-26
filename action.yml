@@ -34,3 +34,6 @@ runs:
     - ${{ inputs.inventoryFile }}
     - ${{ inputs.playbookFile }}
     - ${{ inputs.sshKey }}
+branding:
+  icon: 'cloud-lightning'
+  color: 'purple'
