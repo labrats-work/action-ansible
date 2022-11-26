@@ -12,6 +12,7 @@ jobs:
     name: Ansbile action tests.    
     strategy:
       fail-fast: false
+      max-parallel: 10
       matrix: 
         test: [ default, basic, requirements, keyfile ]
         keyFile: [ "", id_invalid, id_rsa, id_ed25519 ]
