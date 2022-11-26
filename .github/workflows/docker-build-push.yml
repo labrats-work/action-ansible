@@ -8,9 +8,6 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    strategy:
-      matrix: 
-        image: [ terraform, ansible ]
 
     permissions:
       contents: read
@@ -43,8 +40,8 @@ jobs:
         name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./src/${{ matrix.image }}
+          context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/${{ matrix.image }}:${{ env.BRANCH_NAME }}
-            docker.io/labratswork/ops-images-${{ matrix.image }}:${{ env.BRANCH_NAME }}
+            ghcr.io/${{ github.repository }}/ansible-action:${{ env.BRANCH_NAME }}
+            docker.io/labratswork/ops-images-ansible-action:${{ env.BRANCH_NAME }}
