@@ -1,19 +1,11 @@
+name: Test Ansible Action
+
 on: [push]
 
-jobs:
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
-  tests_default:
-    runs-on: ubuntu-latest
-    name: Ansbile action tests.  
-    steps:
-      - 
-        uses: actions/checkout@v3
-      - 
-        name: default
-        id: test_default
-        uses: ./
-        with:
-          workingDirectory: "/tests/default"
+jobs:
 
   tests_matrix:
     runs-on: ubuntu-latest
@@ -21,25 +13,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        test: [ basic, requirements, keyfile ]
+        test: [ default, basic, requirements, keyfile ]
         keyFile: [ "", id_invalid, id_rsa, id_ed25519 ]
         exclude:
-          - test: basic
-            keyfile: id_invalid
-          - test: basic
-            keyfile: id_rsa
-          - test: basic
-            keyfile: id_ed25519
+          - keyfile: id_invalid
+          - keyfile: id_rsa
+          - keyfile: id_ed25519
+          - keyfile: ''
+            test: keyfile
 
-          - test: requirements
-            keyfile: id_invalid
-          - test: requirements
-            keyfile: id_rsa
-          - test: requirements
-            keyfile: id_ed25519
-
-          - test: keyfile
-            keyfile: ''
         include:
           - expectedResult: success
           - requirementsFile: requirements.yml
@@ -49,12 +31,20 @@ jobs:
           - test: keyfile
             keyfile: id_invalid
             expectedResult: failure
-
+          - test: keyfile
+            keyfile: id_rsa
+            expectedResult: success
+          - test: keyfile
+            keyfile: id_ed25519
+            expectedResult: success
     steps:
-      - 
-        uses: actions/checkout@v3
-      - 
-        name: Load keyfile for test.
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+      - name: Update image for test
+        run: |
+          sed -i 's|docker.io/labratswork/ops-images-ansible-action|Dockerfile|' action.yml
+      - name: Load keyfile for test.
         run: |
           cd tests/${{ matrix.test }}
           if [ -f ${{ matrix.keyFile }} ]
@@ -66,19 +56,17 @@ jobs:
             echo EOF >> $GITHUB_ENV
           fi
         if: matrix.keyFile != ''
-      - 
-        name: Run test for ${{ matrix.test }}
+      - name: Run test for ${{ matrix.test }}
         uses: ./
         id: test
         continue-on-error: true
         with:
           workingDirectory: "/tests/${{ matrix.test }}"
-          requirementsFile: ${{ matrix.requirementsFile }}
-          inventoryFile: ${{ matrix.inventoryFile }}
-          playbookFile: ${{ matrix.playbookFile }}
+          requirementsFile: ${{ matrix.requirementsFile || 'requirements.yml' }}
+          inventoryFile: ${{ matrix.inventoryFile || 'inventory' }}
+          playbookFile: ${{ matrix.playbookFile || 'site.yml' }}
           sshKey: ${{ env.KEYFILE }}
-      - 
-        name: Assert test ${{ matrix.test }}
+      - name: Assert test ${{ matrix.test }}
         if: always()
         run: |
           [ "${{ matrix.expectedResult }}" == "${{ steps.test.outcome }}" ] && exit 0
