@@ -15,11 +15,11 @@ jobs:
       max-parallel: 10
       matrix: 
         test: [ default, basic, requirements, keyfile ]
-        keyGen: [ "", id_invalid, id_rsa, id_ed25519 ]
+        keyGen: [ "", invalid, rsa, ed25519 ]
         exclude:
-          - keyGen: id_invalid
-          - keyGen: id_rsa
-          - keyGen: id_ed25519
+          - keyGen: invalid
+          - keyGen: rsa
+          - keyGen: ed25519
           - keyGen: ''
             test: keyfile
 
@@ -47,7 +47,7 @@ jobs:
           sed -i 's|docker.io/labratswork/ops-images-ansible-action|Dockerfile|' action.yml
       - name: Create and load keyfile for test.
         run: |          
-          if [ "${{ matrix.keyGen }}" = "id_invalid" ]
+          if [ "${{ matrix.keyGen }}" = "invalid" ]
           then
             echo 'KEYFILE<<EOF' >> $GITHUB_ENV
             echo $RANDOM >> $GITHUB_ENV
