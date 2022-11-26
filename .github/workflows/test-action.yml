@@ -53,11 +53,11 @@ jobs:
             echo $RANDOM >> $GITHUB_ENV
             echo EOF >> $GITHUB_ENV
           else
-            ssh-keygen -t ${{ matrix.keyGen }} -q -f ${{ matrix.keyGen }}
+            ssh-keygen -t ${{ matrix.keyGen }} -N '' -f id_${{ matrix.keyGen }}
             xargs -a  -I{} -d'\n' echo ::add-mask::{}
             echo "Loading keyfile \"${{ matrix.keyGen }}\" into GITHUB_ENV."
             echo 'KEYFILE<<EOF' >> $GITHUB_ENV
-            cat ${{ matrix.keyGen }} >> $GITHUB_ENV
+            cat id_${{ matrix.keyGen }} >> $GITHUB_ENV
             echo EOF >> $GITHUB_ENV
           fi
         if: matrix.keyGen != ''
