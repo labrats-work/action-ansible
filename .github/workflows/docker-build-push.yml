@@ -3,14 +3,16 @@ name: Create and publish a Docker image
 on: 
   push:
     branches: 
-      - main
       - dev-*
-    tags: 
-      - v1.*
     paths:
       - 'Dockerfile'
       - 'entrypoint.sh'
       - 'tests/**'
+  push:
+    branches: 
+      - main
+    tags: 
+      - v1.*
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
