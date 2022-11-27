@@ -39,3 +39,4 @@
 - [x] Outputs the ansible version
 - [x] Tests to validate passing scenarios
 - [x] Tests to validate failing scenarios
+- [ ] Dont build push on every commit
