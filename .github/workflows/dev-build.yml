@@ -11,7 +11,7 @@ on:
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-  IMAGE_NAME: ansible-action
+  IMAGE_NAME: action-ansible
 
 jobs:
   build-and-push-image:
