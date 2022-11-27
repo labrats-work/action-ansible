@@ -5,7 +5,7 @@ on:
     branches: 
       - main
     tags: 
-      - v1.*
+      - v*
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
