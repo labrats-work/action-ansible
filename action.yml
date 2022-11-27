@@ -27,7 +27,7 @@ outputs:
     description: 'The version of ansible used.'
 runs:
   using: docker
-  image: 'docker.io/labratswork/ops-images-ansible-action:latest'
+  image: docker://docker.io/labratswork/ops-images-ansible-action:latest
   args:
     - ${{ inputs.workingDirectory }}
     - ${{ inputs.requirementsFile }}
