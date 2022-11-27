@@ -3,6 +3,8 @@ FROM docker.io/labratswork/ops-images-ansible:latest
 
 LABEL org.opencontainers.image.authors="tompisula@labrats.work"
 
+ENV ANSIBLE_FORCE_COLOR=0
+
 COPY tests /tests
 COPY entrypoint.sh /entrypoint.sh
 
