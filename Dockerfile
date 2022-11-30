@@ -2,6 +2,7 @@
 FROM docker.io/labratswork/ops-images-ansible:latest
 
 LABEL org.opencontainers.image.authors="tompisula@labrats.work"
+LABEL org.opencontainers.image.source = "https://github.com/labrats-work/action-ansible"
 
 ENV ANSIBLE_FORCE_COLOR=0
 
