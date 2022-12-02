@@ -19,9 +19,6 @@ inputs:
     description: 'The playbook file to use.'
     required: false
     default: 'site.yml'
-  sshKey:
-    description: 'The sshKey to use for host connections.'
-    required: false
 outputs:
   ansibleVersion: 
     description: 'The version of ansible used.'
@@ -33,7 +30,6 @@ runs:
     - ${{ inputs.requirementsFile }}
     - ${{ inputs.inventoryFile }}
     - ${{ inputs.playbookFile }}
-    - ${{ inputs.sshKey }}
 branding:
   icon: 'cloud-lightning'
   color: 'purple'

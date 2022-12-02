@@ -9,18 +9,17 @@
     requirementsFile: requirements.yml
     inventoryFile: inventory
     playbookFile: site.yml
-    sshKey: ${{ secrets.SSH_PRIVATE_KEY }}
 ```
 
 ## Inputs
 
-|Variable|Required|Default|
-|---|---|---|
-|workingDirectory|false|.|
-|requirementsFile|false|requirements.yml|
-|inventoryFile|false|inventory|
-|playbookFile|false|site.yml|
-|sshKey|false|   |
+|Variable|Type|Required|Default|
+|---|---|---|---|
+|workingDirectory|input|false|.|
+|requirementsFile|input|false|requirements.yml|
+|inventoryFile|input|false|inventory|
+|playbookFile|input|false|site.yml|
+|keyfile|env|false|   |
 
 ## Outputs
 
