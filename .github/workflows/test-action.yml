@@ -69,7 +69,6 @@ jobs:
           requirementsFile: ${{ matrix.requirementsFile || 'requirements.yml' }}
           inventoryFile: ${{ matrix.inventoryFile || 'inventory' }}
           playbookFile: ${{ matrix.playbookFile || 'site.yml' }}
-          sshKey: ${{ env.KEYFILE }}
       - name: Assert test ${{ matrix.test }}
         if: always()
         run: |
