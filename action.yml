@@ -24,7 +24,7 @@ outputs:
     description: 'The version of ansible used.'
 runs:
   using: docker
-  image: docker://ghcr.io/labrats-work/action-ansible/action-ansible:latest
+  image: Dockerfile
   args:
     - ${{ inputs.workingDirectory }}
     - ${{ inputs.requirementsFile }}
