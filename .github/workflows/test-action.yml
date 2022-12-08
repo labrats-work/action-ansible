@@ -41,9 +41,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ env.BRANCH_NAME }}
-      - name: Update image for test
-        run: |
-          sed -i 's|docker://ghcr.io/labrats-work/action-ansible/action-ansible:latest|Dockerfile|' action.yml
       - name: Create and load keyfile for test.
         run: |          
           if [ "${{ matrix.keyGen }}" = "invalid" ]
@@ -69,7 +66,6 @@ jobs:
           requirementsFile: ${{ matrix.requirementsFile || 'requirements.yml' }}
           inventoryFile: ${{ matrix.inventoryFile || 'inventory' }}
           playbookFile: ${{ matrix.playbookFile || 'site.yml' }}
-          sshKey: ${{ env.KEYFILE }}
       - name: Assert test ${{ matrix.test }}
         if: always()
         run: |
